@@ -1,0 +1,20 @@
+{
+	"i18n": true,
+	"type": "tabs",
+	"items": {
+		"_options": {
+			"type": "panel",
+			"label": "Options",
+			"items": {
+				"apikey": {
+					"type": "password",
+					"sm": 12,
+					"md": 6,
+					"lg": 6,
+					"label": "OPENAI-API-KEY",
+					"help": "Youe OpenAI-Api-Key"
+				}
+			}
+		}
+	}
+}
