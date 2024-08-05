@@ -1,4 +1,5 @@
 'use strict';
+const axios = require('axios');
 
 /*
  * Created with @iobroker/create-adapter v2.6.3
@@ -36,10 +37,16 @@ class AiControl extends utils.Adapter {
 		// Reset the connection indicator during startup
 		this.setState('info.connection', false, true);
 
+		if (this.config.aicontrolmode == 'disabled') {
+			this.log.warn("AI Control Mode is set to 'disabled'!");
+		}
+
 		// The adapters config (in the instance object everything under the attribute "native") is accessible via
 		// this.config:
-		this.log.info('config option1: ' + this.config.option1);
-		this.log.info('config option2: ' + this.config.option2);
+		if (!this.config.apikey) {
+			this.log.error('Api key is not set!');
+			return;
+		}
 
 		/*
 		For every state in the system there has to be also an object of type state
@@ -143,17 +150,17 @@ class AiControl extends utils.Adapter {
 	//  * Using this method requires "common.messagebox" property to be set to true in io-package.json
 	//  * @param {ioBroker.Message} obj
 	//  */
-	// onMessage(obj) {
-	// 	if (typeof obj === 'object' && obj.message) {
-	// 		if (obj.command === 'send') {
-	// 			// e.g. send email or pushover or whatever
-	// 			this.log.info('send command');
+	onMessage(obj) {
+		if (typeof obj === 'object' && obj.message) {
+			if (obj.command === 'send') {
+				// e.g. send email or pushover or whatever
+				this.log.info('send command');
 
-	// 			// Send response in callback if required
-	// 			if (obj.callback) this.sendTo(obj.from, obj.command, 'Message received', obj.callback);
-	// 		}
-	// 	}
-	// }
+				// Send response in callback if required
+				if (obj.callback) this.sendTo(obj.from, obj.command, 'Message received', obj.callback);
+			}
+		}
+	}
 }
 
 if (require.main !== module) {

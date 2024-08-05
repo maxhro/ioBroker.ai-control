@@ -1,4 +1,5 @@
 ![Logo](admin/ai-control.png)
+
 # ioBroker.ai-control
 
 [![NPM version](https://img.shields.io/npm/v/iobroker.ai-control.svg)](https://www.npmjs.com/package/iobroker.ai-control)
@@ -15,6 +16,7 @@
 Access OpenAI-API to control your Home with AI
 
 ## Developer manual
+
 This section is intended for the developer. It can be deleted later.
 
 ### DISCLAIMER
@@ -23,15 +25,18 @@ Please make sure that you consider copyrights and trademarks when you use names 
 You can check other adapters for examples or ask in the developer community. Using a name or logo of a company without permission may cause legal problems for you.
 
 ## Changelog
+
 <!--
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
 
 ### **WORK IN PROGRESS**
-* (MAxHRO) initial release
+
+-   (MaxHRO) initial release
 
 ## License
+
 MIT License
 
 Copyright (c) 2024 MaxHRO <maximilian.risch@gmx.net>

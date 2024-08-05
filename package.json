@@ -71,7 +71,7 @@
     "release": "release-script"
   },
   "bugs": {
-    "url": "https://github.com/MaxHRO/ioBroker.ai-control/issues"
+    "url": "https://github.com/maxhro/ioBroker.ai-control/issues"
   },
   "readmeFilename": "README.md"
 }

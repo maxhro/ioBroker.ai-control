@@ -1,3 +1,8 @@
 {
-	"Options": "Options"
+	"Default": "Default",
+	"Your Name": "Your Name",
+	"OpenAI": "OpenAI",
+	"Options": "Options",
+	"OpenAI-Api-Key": "OpenAI-Api-Key",
+	"Your OpenAI-Api-Key": "Your OpenAI-Api-Key"
 }

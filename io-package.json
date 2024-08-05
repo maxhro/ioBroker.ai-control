@@ -64,6 +64,7 @@
 		"compact": true,
 		"connectionType": "cloud",
 		"dataSource": "push",
+		"materialize": true,
 		"adminUI": {
 			"config": "json"
 		},
@@ -79,7 +80,8 @@
 		]
 	},
 	"native": {
-		"apikey": "123"
+		"apikey": "",
+		"aicontrolmode": "disabled"
 	},
 	"objects": [],
 	"instanceObjects": [
