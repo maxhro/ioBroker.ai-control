@@ -7,14 +7,14 @@
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 const utils = require('@iobroker/adapter-core');
-const axios = require('axios');
-const tools = require('./lib/tools.js');
+// const axios = require('axios');
+// const tools = require('./lib/tools.js');
 const openai = require('./lib/openai.js');
 
 // Load your modules here, e.g.:
 // const fs = require("fs");
 
-var _adapter;
+let _adapter;
 
 class AiControl extends utils.Adapter {
 	/**
@@ -106,11 +106,11 @@ class AiControl extends utils.Adapter {
 		// await this.setState('testVariable', { val: true, ack: true, expire: 30 });
 
 		// examples for the checkPassword/checkGroup functions
-		let result = await this.checkPasswordAsync('admin', 'iobroker');
-		this.log.info('check user admin pw iobroker: ' + result);
+		// let result = await this.checkPasswordAsync('admin', 'iobroker');
+		// this.log.info('check user admin pw iobroker: ' + result);
 
-		result = await this.checkGroupAsync('admin', 'admin');
-		this.log.info('check group user admin group admin: ' + result);
+		// result = await this.checkGroupAsync('admin', 'admin');
+		// this.log.info('check group user admin group admin: ' + result);
 	}
 
 	/**
@@ -129,6 +129,7 @@ class AiControl extends utils.Adapter {
 
 			callback();
 		} catch (e) {
+			this.log.error(e);
 			callback();
 		}
 	}
