@@ -8,9 +8,13 @@
 // you need to create an adapter
 const utils = require('@iobroker/adapter-core');
 const axios = require('axios');
+const tools = require('./lib/tools.js');
+const openai = require('./lib/openai.js');
 
 // Load your modules here, e.g.:
 // const fs = require("fs");
+
+var _adapter;
 
 class AiControl extends utils.Adapter {
 	/**
@@ -21,6 +25,9 @@ class AiControl extends utils.Adapter {
 			...options,
 			name: 'ai-control',
 		});
+
+		_adapter = this;
+
 		this.on('ready', this.onReady.bind(this));
 		this.on('stateChange', this.onStateChange.bind(this));
 		// this.on('objectChange', this.onObjectChange.bind(this));
@@ -37,9 +44,7 @@ class AiControl extends utils.Adapter {
 		// Reset the connection indicator during startup
 		this.setState('info.connection', false, true);
 
-		if (this.config.global_aicontrolmode == 'disabled') {
-			this.log.warn("AI Control Mode is set to 'disabled'!");
-		}
+		this.setState('openai.requeststate', openai.requestState.Unknown, true);
 
 		// The adapters config (in the instance object everything under the attribute "native") is accessible via
 		// this.config:
@@ -48,25 +53,39 @@ class AiControl extends utils.Adapter {
 			return;
 		}
 
+		if (this.config.global_aicontrolmode == 'disabled') {
+			this.log.warn("AI Control Mode is set to 'disabled'!");
+		}
+
+		openai.apiTest(this).then((success) => {
+			if (success) {
+				this.log.info('Successfully connected to Api (OpenAI).');
+			} else {
+				this.log.error('Cannot connect to Api (OpenAI)!');
+			}
+
+			this.setState('info.connection', success, true);
+		});
+
 		/*
 		For every state in the system there has to be also an object of type state
 		Here a simple template for a boolean variable named "testVariable"
 		Because every adapter instance uses its own unique namespace variable names can't collide with other adapters variables
 		*/
-		await this.setObjectNotExistsAsync('testVariable', {
-			type: 'state',
-			common: {
-				name: 'testVariable',
-				type: 'boolean',
-				role: 'indicator',
-				read: true,
-				write: true,
-			},
-			native: {},
-		});
+		// await this.setObjectNotExistsAsync('testVariable', {
+		// 	type: 'state',
+		// 	common: {
+		// 		name: 'testVariable',
+		// 		type: 'boolean',
+		// 		role: 'indicator',
+		// 		read: true,
+		// 		write: true,
+		// 	},
+		// 	native: {},
+		// });
 
 		// In order to get state updates, you need to subscribe to them. The following line adds a subscription for our variable we have created above.
-		this.subscribeStates('testVariable');
+		// this.subscribeStates('testVariable');
 		// You can also add a subscription for multiple states. The following line watches all states starting with "lights."
 		// this.subscribeStates('lights.*');
 		// Or, if you really must, you can also watch all states. Don't do this if you don't need to. Otherwise this will cause a lot of unnecessary load on the system:
@@ -77,14 +96,14 @@ class AiControl extends utils.Adapter {
 			you will notice that each setState will cause the stateChange event to fire (because of above subscribeStates cmd)
 		*/
 		// the variable testVariable is set to true as command (ack=false)
-		await this.setState('testVariable', true);
+		// await this.setState('testVariable', true);
 
 		// same thing, but the value is flagged "ack"
 		// ack should be always set to true if the value is received from or acknowledged from the target system
-		await this.setState('testVariable', { val: true, ack: true });
+		// await this.setState('testVariable', { val: true, ack: true });
 
 		// same thing, but the state is deleted after 30s (getState will return null afterwards)
-		await this.setState('testVariable', { val: true, ack: true, expire: 30 });
+		// await this.setState('testVariable', { val: true, ack: true, expire: 30 });
 
 		// examples for the checkPassword/checkGroup functions
 		let result = await this.checkPasswordAsync('admin', 'iobroker');
@@ -105,6 +124,8 @@ class AiControl extends utils.Adapter {
 			// clearTimeout(timeout2);
 			// ...
 			// clearInterval(interval1);
+
+			this.setState('openai.requeststate', openai.requestState.Unknown, true);
 
 			callback();
 		} catch (e) {
