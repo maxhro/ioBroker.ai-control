@@ -6,7 +6,21 @@
 			"type": "panel",
 			"label": "Default",
 			"items": {
-				"global_aicontrolmode": {
+				"global_ai_targetapi": {
+					"type": "select",
+					"options": [
+						{
+							"label": { "en": "OpenAI" },
+							"value": "OpenAI"
+						}
+					],
+					"sm": 6,
+					"md": 3,
+					"lg": 3,
+					"label": { "en": "AI API" },
+					"help": ""
+				},
+				"global_ai_controlmode": {
 					"type": "select",
 					"options": [
 						{
@@ -41,6 +55,36 @@
 					"lg": 3,
 					"label": { "en": "OpenAI-Api-Key" },
 					"help": "Your OpenAI-Api-Key"
+				},
+				"openai_model": {
+					"type": "select",
+					"options": [
+						{
+							"label": { "en": "GPT-4o" },
+							"value": "GPT-4o"
+						},
+						{
+							"label": { "en": "GPT-4o mini" },
+							"value": "GPT-4o mini"
+						},
+						{
+							"label": { "en": "GPT-4" },
+							"value": "GPT-4"
+						},
+						{
+							"label": { "en": "GPT-4 Turbo" },
+							"value": "GPT-4 Turbo"
+						},
+						{
+							"label": { "en": "GPT-3.5 Turbo" },
+							"value": "GPT-3.5 Turbo"
+						}
+					],
+					"sm": 6,
+					"md": 3,
+					"lg": 3,
+					"label": { "en": "OpenAI Model" },
+					"help": ""
 				}
 			}
 		}
