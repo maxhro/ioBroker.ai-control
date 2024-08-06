@@ -1,5 +1,4 @@
 'use strict';
-const axios = require('axios');
 
 /*
  * Created with @iobroker/create-adapter v2.6.3
@@ -8,6 +7,7 @@ const axios = require('axios');
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 const utils = require('@iobroker/adapter-core');
+const axios = require('axios');
 
 // Load your modules here, e.g.:
 // const fs = require("fs");
@@ -37,14 +37,14 @@ class AiControl extends utils.Adapter {
 		// Reset the connection indicator during startup
 		this.setState('info.connection', false, true);
 
-		if (this.config.aicontrolmode == 'disabled') {
+		if (this.config.global_aicontrolmode == 'disabled') {
 			this.log.warn("AI Control Mode is set to 'disabled'!");
 		}
 
 		// The adapters config (in the instance object everything under the attribute "native") is accessible via
 		// this.config:
-		if (!this.config.apikey) {
-			this.log.error('Api key is not set!');
+		if (!this.config.openai_apikey) {
+			this.log.error('Api key (OpenAI) is not set!');
 			return;
 		}
 
@@ -77,14 +77,14 @@ class AiControl extends utils.Adapter {
 			you will notice that each setState will cause the stateChange event to fire (because of above subscribeStates cmd)
 		*/
 		// the variable testVariable is set to true as command (ack=false)
-		await this.setStateAsync('testVariable', true);
+		await this.setState('testVariable', true);
 
 		// same thing, but the value is flagged "ack"
 		// ack should be always set to true if the value is received from or acknowledged from the target system
-		await this.setStateAsync('testVariable', { val: true, ack: true });
+		await this.setState('testVariable', { val: true, ack: true });
 
 		// same thing, but the state is deleted after 30s (getState will return null afterwards)
-		await this.setStateAsync('testVariable', { val: true, ack: true, expire: 30 });
+		await this.setState('testVariable', { val: true, ack: true, expire: 30 });
 
 		// examples for the checkPassword/checkGroup functions
 		let result = await this.checkPasswordAsync('admin', 'iobroker');
