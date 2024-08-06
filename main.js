@@ -7,6 +7,7 @@
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 const utils = require('@iobroker/adapter-core');
+const axios = require('axios');
 
 // Load your modules here, e.g.:
 // const fs = require("fs");
@@ -36,10 +37,16 @@ class AiControl extends utils.Adapter {
 		// Reset the connection indicator during startup
 		this.setState('info.connection', false, true);
 
+		if (this.config.global_aicontrolmode == 'disabled') {
+			this.log.warn("AI Control Mode is set to 'disabled'!");
+		}
+
 		// The adapters config (in the instance object everything under the attribute "native") is accessible via
 		// this.config:
-		this.log.info('config option1: ' + this.config.option1);
-		this.log.info('config option2: ' + this.config.option2);
+		if (!this.config.openai_apikey) {
+			this.log.error('Api key (OpenAI) is not set!');
+			return;
+		}
 
 		/*
 		For every state in the system there has to be also an object of type state
@@ -70,14 +77,14 @@ class AiControl extends utils.Adapter {
 			you will notice that each setState will cause the stateChange event to fire (because of above subscribeStates cmd)
 		*/
 		// the variable testVariable is set to true as command (ack=false)
-		await this.setStateAsync('testVariable', true);
+		await this.setState('testVariable', true);
 
 		// same thing, but the value is flagged "ack"
 		// ack should be always set to true if the value is received from or acknowledged from the target system
-		await this.setStateAsync('testVariable', { val: true, ack: true });
+		await this.setState('testVariable', { val: true, ack: true });
 
 		// same thing, but the state is deleted after 30s (getState will return null afterwards)
-		await this.setStateAsync('testVariable', { val: true, ack: true, expire: 30 });
+		await this.setState('testVariable', { val: true, ack: true, expire: 30 });
 
 		// examples for the checkPassword/checkGroup functions
 		let result = await this.checkPasswordAsync('admin', 'iobroker');
@@ -143,17 +150,17 @@ class AiControl extends utils.Adapter {
 	//  * Using this method requires "common.messagebox" property to be set to true in io-package.json
 	//  * @param {ioBroker.Message} obj
 	//  */
-	// onMessage(obj) {
-	// 	if (typeof obj === 'object' && obj.message) {
-	// 		if (obj.command === 'send') {
-	// 			// e.g. send email or pushover or whatever
-	// 			this.log.info('send command');
+	onMessage(obj) {
+		if (typeof obj === 'object' && obj.message) {
+			if (obj.command === 'send') {
+				// e.g. send email or pushover or whatever
+				this.log.info('send command');
 
-	// 			// Send response in callback if required
-	// 			if (obj.callback) this.sendTo(obj.from, obj.command, 'Message received', obj.callback);
-	// 		}
-	// 	}
-	// }
+				// Send response in callback if required
+				if (obj.callback) this.sendTo(obj.from, obj.command, 'Message received', obj.callback);
+			}
+		}
+	}
 }
 
 if (require.main !== module) {

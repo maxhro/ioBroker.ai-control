@@ -1,109 +1,134 @@
 {
-	"common": {
-		"name": "ai-control",
-		"version": "0.0.1",
-		"news": {
-			"0.0.1": {
-				"en": "initial release",
-				"de": "Erstveröffentlichung",
-				"ru": "Начальная версия",
-				"pt": "lançamento inicial",
-				"nl": "Eerste uitgave",
-				"fr": "Première version",
-				"it": "Versione iniziale",
-				"es": "Versión inicial",
-				"pl": "Pierwsze wydanie",
-				"uk": "Початкова версія",
-				"zh-cn": "首次出版"
-			}
-		},
-		"title": "AI Control",
-		"titleLang": {
-			"en": "AI Control",
-			"de": "KI-Steuerung",
-			"ru": "AI-управление",
-			"pt": "Controle de IA",
-			"nl": "AI-controle",
-			"fr": "Contrôle IA",
-			"it": "Controllo dell'intelligenza artificiale",
-			"es": "Control de IA",
-			"pl": "Kontrola AI",
-			"uk": "AI Control",
-			"zh-cn": "人工智能控制"
-		},
-		"desc": {
-			"en": "Access OpenAI-API to control your Home with AI",
-			"de": "Greifen Sie auf die OpenAI-API zu, um Ihr Zuhause mit KI zu steuern",
-			"ru": "Получите доступ к OpenAI-API для управления своим домом с помощью ИИ",
-			"pt": "Acesse OpenAI-API para controlar sua casa com IA",
-			"nl": "Krijg toegang tot OpenAI-API om uw huis te besturen met AI",
-			"fr": "Accédez à OpenAI-API pour contrôler votre maison avec l'IA",
-			"it": "Accedi a OpenAI-API per controllare la tua casa con l'intelligenza artificiale",
-			"es": "Accede a OpenAI-API para controlar tu hogar con IA",
-			"pl": "Uzyskaj dostęp do OpenAI-API, aby kontrolować swój dom za pomocą sztucznej inteligencji",
-			"uk": "Отримайте доступ до OpenAI-API, щоб керувати домом за допомогою ШІ",
-			"zh-cn": "接入 OpenAI-API，用 AI 控制您的家庭"
-		},
-		"authors": ["MAxHRO <maximilian.risch@gmx.net>"],
-		"keywords": ["AI", "OpenAI"],
-		"license": "MIT",
-		"licenseInformation": {
-			"type": "free",
-			"license": "MIT"
-		},
-		"platform": "Javascript/Node.js",
-		"main": "main.js",
-		"icon": "ai-control.png",
-		"enabled": true,
-		"extIcon": "https://raw.githubusercontent.com/MaxHRO/ioBroker.ai-control/main/admin/ai-control.png",
-		"readme": "https://github.com/MaxHRO/ioBroker.ai-control/blob/main/README.md",
-		"loglevel": "info",
-		"tier": 3,
-		"mode": "daemon",
-		"type": "iot-systems",
-		"compact": true,
-		"connectionType": "cloud",
-		"dataSource": "push",
-		"adminUI": {
-			"config": "materialize"
-		},
-		"dependencies": [
-			{
-				"js-controller": ">=3.3.22"
-			}
-		],
-		"globalDependencies": [
-			{
-				"admin": ">=5.0.0"
-			}
-		]
-	},
-	"native": {
-		"option1": true,
-		"option2": "42"
-	},
-	"objects": [],
-	"instanceObjects": [
-		{
-			"_id": "info",
-			"type": "channel",
-			"common": {
-				"name": "Information"
-			},
-			"native": {}
-		},
-		{
-			"_id": "info.connection",
-			"type": "state",
-			"common": {
-				"role": "indicator.connected",
-				"name": "Device or service connected",
-				"type": "boolean",
-				"read": true,
-				"write": false,
-				"def": false
-			},
-			"native": {}
-		}
-	]
+  "common": {
+    "name": "ai-control",
+    "version": "0.0.2-alpha.0",
+    "news": {
+      "0.0.2-alpha.0": {
+        "en": "initial release",
+        "de": "erstausstrahlung",
+        "ru": "первоначальный выпуск",
+        "pt": "lançamento inicial",
+        "nl": "eerste release",
+        "fr": "libération initiale",
+        "it": "rilascio iniziale",
+        "es": "liberación inicial",
+        "pl": "początkowe zwolnienie",
+        "uk": "початковий реліз",
+        "zh-cn": "初步释放"
+      },
+      "0.0.1": {
+        "en": "initial release",
+        "de": "Erstveröffentlichung",
+        "ru": "Начальная версия",
+        "pt": "lançamento inicial",
+        "nl": "Eerste uitgave",
+        "fr": "Première version",
+        "it": "Versione iniziale",
+        "es": "Versión inicial",
+        "pl": "Pierwsze wydanie",
+        "uk": "Початкова версія",
+        "zh-cn": "首次出版"
+      }
+    },
+    "title": "AI Control",
+    "titleLang": {
+      "en": "AI Control",
+      "de": "KI-Steuerung",
+      "ru": "AI-управление",
+      "pt": "Controle de IA",
+      "nl": "AI-controle",
+      "fr": "Contrôle IA",
+      "it": "Controllo dell'intelligenza artificiale",
+      "es": "Control de IA",
+      "pl": "Kontrola AI",
+      "uk": "AI Control",
+      "zh-cn": "人工智能控制"
+    },
+    "desc": {
+      "en": "Access OpenAI-API to control your Home with AI",
+      "de": "Greifen Sie auf die OpenAI-API zu, um Ihr Zuhause mit KI zu steuern",
+      "ru": "Получите доступ к OpenAI-API для управления своим домом с помощью ИИ",
+      "pt": "Acesse OpenAI-API para controlar sua casa com IA",
+      "nl": "Krijg toegang tot OpenAI-API om uw huis te besturen met AI",
+      "fr": "Accédez à OpenAI-API pour contrôler votre maison avec l'IA",
+      "it": "Accedi a OpenAI-API per controllare la tua casa con l'intelligenza artificiale",
+      "es": "Accede a OpenAI-API para controlar tu hogar con IA",
+      "pl": "Uzyskaj dostęp do OpenAI-API, aby kontrolować swój dom za pomocą sztucznej inteligencji",
+      "uk": "Отримайте доступ до OpenAI-API, щоб керувати домом за допомогою ШІ",
+      "zh-cn": "接入 OpenAI-API，用 AI 控制您的家庭"
+    },
+    "authors": [
+      "MAxHRO <maximilian.risch@gmx.net>"
+    ],
+    "keywords": [
+      "AI",
+      "OpenAI"
+    ],
+    "license": "MIT",
+    "licenseInformation": {
+      "type": "free",
+      "license": "MIT"
+    },
+    "platform": "Javascript/Node.js",
+    "main": "main.js",
+    "icon": "ai-control.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/MaxHRO/ioBroker.ai-control/main/admin/ai-control.png",
+    "readme": "https://github.com/MaxHRO/ioBroker.ai-control/blob/main/README.md",
+    "loglevel": "info",
+    "tier": 3,
+    "mode": "daemon",
+    "type": "iot-systems",
+    "compact": true,
+    "connectionType": "cloud",
+    "dataSource": "push",
+    "materialize": true,
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=3.3.22"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=5.1.28"
+      }
+    ]
+  },
+  "native": {
+    "apikey": "",
+    "aicontrolmode": "disabled"
+  },
+  "protectedNative": [
+    "apikey"
+  ],
+  "encryptedNative": [
+    "apikey"
+  ],
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "Device or service connected",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    }
+  ]
 }

@@ -1,0 +1,48 @@
+{
+	"i18n": true,
+	"type": "tabs",
+	"items": {
+		"_default": {
+			"type": "panel",
+			"label": "Default",
+			"items": {
+				"global_aicontrolmode": {
+					"type": "select",
+					"options": [
+						{
+							"label": { "en": "Disabled" },
+							"value": "disabled"
+						},
+						{
+							"label": { "en": "Suggest" },
+							"value": "suggest"
+						},
+						{
+							"label": { "en": "Modify" },
+							"value": "modify"
+						}
+					],
+					"sm": 6,
+					"md": 3,
+					"lg": 3,
+					"label": { "en": "AI Control Mode" },
+					"help": ""
+				}
+			}
+		},
+		"_openai": {
+			"type": "panel",
+			"label": "OpenAI",
+			"items": {
+				"openai_apikey": {
+					"type": "password",
+					"sm": 6,
+					"md": 3,
+					"lg": 3,
+					"label": { "en": "OpenAI-Api-Key" },
+					"help": "Your OpenAI-Api-Key"
+				}
+			}
+		}
+	}
+}
